@@ -17,8 +17,6 @@ class RegisterController extends Controller
 
     public function store(Request $request) {
 
-        sleep(2);
-
         $credentials = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|lowercase|email|max:255',
