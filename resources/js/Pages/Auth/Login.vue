@@ -45,7 +45,7 @@ const submit = () => {
 
                     <CheckBox name="remember" v-model="form.remember">Remember me</CheckBox>
 
-                    <TextLink routeName="home" label="Forgot Password?" />
+                    <TextLink routeName="password.request" label="Forgot Password?" />
                 </div>
 
                 <div class="text-left">

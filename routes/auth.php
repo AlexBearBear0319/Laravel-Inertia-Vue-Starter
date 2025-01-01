@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticateController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 //for Guest
@@ -14,6 +15,13 @@ Route::middleware('guest')->group(function () {
     // Login
     Route::get('/login', [AuthenticateController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticateController::class, 'store']);
+
+    //Reset Password
+    Route::get('/forgot-password', [ResetPasswordController::class, 'resetPass'])->name('password.request');
+    Route::post(
+        '/forgot-password',
+        [ResetPasswordController::class, 'sendEmail']
+    )->name('password.email');
 });
 
 //for Auth/User
