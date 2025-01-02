@@ -10,52 +10,35 @@ import SessionMessages from '../../Components/SessionMessages.vue';
 import CheckBox from '../../Components/CheckBox.vue';
 
 const form = useForm({
-    email: "",
     password: "",
-    remember: null,
 })
 
-defineProps({ status:String, })
-
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+    form.post(route(''), {
+        onFinish: () => form.reset(),
     })
 }
 </script>
 
 <template>
 
-    <Head title="- Login" />
+    <Head title="- Password Confirmation" />
     <Container class="w-3/4">
         <div class="mb-8 text-center">
-            <Title>Login to your account</Title>
             <p class="mb-4">
-                Need an account?
-                <TextLink routeName="register" label="Register" />
+                This is a secure area of the application. Please confirm your password before continuing.
             </p>
 
             <!-- Error message -->
             <ErrorMessages :errors="form.errors" />
-            <SessionMessages :status="status" />
 
             <form @submit.prevent="submit" class="space-y-6">
 
-                <InputField label="Email" type="email" icon="at" v-model="form.email" />
-
                 <InputField label="Password" type="password" icon="key" v-model="form.password" />
 
-                <div class="flex items-center justify-between">
-
-                    <CheckBox name="remember" v-model="form.remember">Remember me</CheckBox>
-
-                    <TextLink routeName="password.request" label="Forgot Password?" />
-                </div>
-
                 <div class="text-left">
-                    <PrimaryBtn :disable="form.processing">Login</PrimaryBtn>
+                    <PrimaryBtn :disable="form.processing">Confirm</PrimaryBtn>
                 </div>
-
             </form>
         </div>
     </Container>

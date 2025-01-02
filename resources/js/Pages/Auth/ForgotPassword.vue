@@ -10,17 +10,18 @@ const form = useForm({
     email: "",
 })
 
+defineProps({ status: String })
+
 const submit = () => {
-    form.post(route(""))
+    form.post(route("password.email"))
 }
 
-defineProps({ status: String })
 </script>
 
 <template>
 
     <Head title="- Forgot Password" />
-    <Container class="w-3/4">
+    <Container class="w-1/2">
         <div class="mb-8 text-center">
             <p class="mb-4">
                 Forgot your password? No problem. Just let us know your email address and we will email you a password
