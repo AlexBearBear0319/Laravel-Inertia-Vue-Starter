@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Database\Console\Migrations\ResetCommand;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 //for Guest
@@ -48,4 +49,6 @@ Route::middleware('auth')->group(function () {
 
     //Password Confirmation
     Route::get('/confirm-password', [ConfirmPasswordController::class, 'create'])->name('password.confirm');
+
+    Route::post('/confirm-password', [ConfirmPasswordController::class, 'store'])->middleware('throttle:6,1');
 });
