@@ -16,7 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/', [ListingController::class])->name('home');
 Route::resource('listings', ListingController::class)->except('index');
 
-Route::inertia('/', 'Home')->name('home');
 require __DIR__ . '/auth.php';
