@@ -1,5 +1,6 @@
 <script setup>
 import Card from '../Components/Card.vue';
+import PaginationLinks from '../Components/PaginationLinks.vue';
 
 defineProps({
     listings: Object,
@@ -9,6 +10,7 @@ defineProps({
 
 <template>
     {{ console.log(listings) }}
+
     <Head title="- Latest Listings" />
 
     <div v-if="Object.keys(listings.data).length">
@@ -17,7 +19,8 @@ defineProps({
                 <Card :listing="listing" />
             </div>
         </div>
-        <Pagination :meta="listings" />
-        
+        <div class="mt-8">
+            <PaginationLinks :paginator="listings" />
+        </div>
     </div>
 </template>

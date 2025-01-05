@@ -10,12 +10,10 @@ defineProps({
         <div>
             <!-- Image -->
             <Link href="">
-            <img 
-                :src="listing.image 
+            <img :src="listing.image
                 ? `/storage/${listing.image}`
-                : `/storage/images/listing/default.jpg`"
-                class="w-full h-48 bg-slate-300 object-cover object-center" alt="" 
-            />
+                : `/storage/images/listing/default.jpg`" class="w-full h-48 bg-slate-300 object-cover object-center"
+                alt="" />
             </Link>
 
             <!-- Title & user -->
