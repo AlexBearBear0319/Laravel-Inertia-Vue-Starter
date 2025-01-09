@@ -4,20 +4,24 @@ import PaginationLinks from '../Components/PaginationLinks.vue';
 import InputField from '../Components/InputField.vue';
 import { router, useForm } from '@inertiajs/vue3';
 
-defineProps({
+const params = route().params;
+
+const props = defineProps({
     listings: Object,
+    searchTerm: String,
 });
 
 const form = useForm({
-    search: '',
+    search: props.searchTerm,
 });
 
 const search = () => {
-    router.get(route('home'), { search: form.search });
+    router.get(route('home'), { search: form.search, user_id: params.user_id, tag: params.tag });
 };
 </script>
 
 <template>
+
     <Head title="- Latest Listings" />
 
     <div class="flex items-center justify-between mb-4">
@@ -26,8 +30,9 @@ const search = () => {
         </div>
 
         <div class="w-1/4">
-            <form action="">
-                <InputField type="search" label="" icon="magnifying-glass" placeholder="Search..." v-model="form.search"/>
+            <form @submit.prevent="search">
+                <InputField type="search" label="" icon="magnifying-glass" placeholder="Search..."
+                    v-model="form.search" />
             </form>
 
         </div>

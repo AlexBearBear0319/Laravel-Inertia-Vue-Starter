@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use App\Http\Requests\StoreListingRequest;
 use App\Http\Requests\UpdateListingRequest;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ListingController extends Controller
@@ -12,12 +14,22 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $Listings = Listing::with('user')->latest()->paginate(6);
+        $Listings = Listing::whereHas('user', function (Builder $query) {
+            $query->where('role', '!=', 'suspended');
+        })
+            ->with('user')
+            //check  if the listing is approved first before the next query
+            ->where('approved', true)
+            ->filter(request(['search', 'user_id', 'tag']))
+            ->latest()
+            ->paginate(6)
+            ->withQueryString();
 
         return Inertia::render('Home', [
-            'listings' => $Listings
+            'listings' => $Listings,
+            'searchTerm' => request('search'),
         ]);
     }
 

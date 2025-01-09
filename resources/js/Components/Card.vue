@@ -1,7 +1,27 @@
 <script setup>
+import { router } from '@inertiajs/vue3';
+
+const params = route().params;
+
 defineProps({
     listing: Object,
-})
+});
+
+const selectUser = (id) => {
+    router.get(route('home'), {
+        user_id: id,
+        search: params.search,
+        tag: params.tag
+    });
+};
+
+const selectTag = (tag) => {
+    router.get(route('home'), {
+        user_id: params.user_id,
+        search: params.search,
+        tag: tag
+    });
+};
 </script>
 
 <template>
@@ -23,7 +43,7 @@ defineProps({
                 </h3>
 
                 <p>Listed on {{ new Date(listing.created_at).toLocaleDateString() }} by
-                    <button class="text-link">
+                    <button class="text-link" @click="selectUser(listing.user.id)">
                         {{ listing.user.name }}
                     </button>
                 </p>
@@ -33,6 +53,7 @@ defineProps({
         <div v-if="listing.tags" class="flex items-center gap-3 px-4 pb-4">
             <div v-for="tag in listing.tags.split(',')" :key="tag">
                 <button
+                @click="selectTag(tag)"
                     class="bg-slate-500 text-white px-2 py-px rounded-full hover:bg-slate-700 dark:hover:bg-slate-900">
                     {{ tag }}
                 </button>
