@@ -28,23 +28,20 @@ const search = () => {
 
     <div class="flex items-center justify-between mb-4">
         <div class="flex item-center gap-2">
-            <Link 
-            class="px-2 py-1 rounded-md bg-indigo-500 text-white flex items-center gap-2"
-            v-if="params.tag" :href="route('home', { ...params, tag: null, page: null })">
+            <Link class="px-2 py-1 rounded-md bg-indigo-500 text-white flex items-center gap-2" v-if="params.tag"
+                :href="route('home', { ...params, tag: null, page: null })">
             {{ params.tag }}
             <i class="fa-solid fa-xmark"></i>
             </Link>
 
-            <Link 
-            class="px-2 py-1 rounded-md bg-indigo-500 text-white flex items-center gap-2"
-            v-if="params.search" :href="route('home', { ...params, search: null, page: null })">
+            <Link class="px-2 py-1 rounded-md bg-indigo-500 text-white flex items-center gap-2" v-if="params.search"
+                :href="route('home', { ...params, search: null, page: null })">
             {{ params.search }}
             <i class="fa-solid fa-xmark"></i>
             </Link>
 
-            <Link 
-            class="px-2 py-1 rounded-md bg-indigo-500 text-white flex items-center gap-2"
-            v-if="params.user_id" :href="route('home', { ...params, user_id: null, page: null })">
+            <Link class="px-2 py-1 rounded-md bg-indigo-500 text-white flex items-center gap-2" v-if="params.user_id"
+                :href="route('home', { ...params, user_id: null, page: null })">
             {{ username }}
             <i class="fa-solid fa-xmark"></i>
             </Link>
