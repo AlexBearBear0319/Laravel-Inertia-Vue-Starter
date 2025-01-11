@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use App\Http\Requests\StoreListingRequest;
-use App\Http\Requests\UpdateListingRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -44,9 +42,15 @@ class ListingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreListingRequest $request)
+    public function store(Request $request)
     {
-        //
+        $fields = $request->validate([
+            'title' => ['required', 'max:255'],
+            'desc' => ['required'],
+            'tags' => ['nullable', 'string'],
+            'email' => ['nullable', 'email'],
+            'link' => ['nullable', 'url'],
+        ]);
     }
 
     /**
@@ -68,7 +72,7 @@ class ListingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateListingRequest $request, Listing $listing)
+    public function update(Request $request, Listing $listing)
     {
         //
     }
