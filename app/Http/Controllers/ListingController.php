@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ListingController extends Controller
@@ -44,13 +45,34 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
+        //__convert the tags to an array__
+        // $newTags = explode(',', $request->tags);
+        //__remove any empty tags__
+        // $newTags = array_map('trim', $newTags);
+        // $newTags = array_filter($newTags);
+        //__remove the duplicates__
+        // $newTags = array_unique($newTags);
+        //__convert the array back to a string__
+        // $newTags = implode(',', $newTags);
+
         $fields = $request->validate([
             'title' => ['required', 'max:255'],
             'desc' => ['required'],
             'tags' => ['nullable', 'string'],
             'email' => ['nullable', 'email'],
             'link' => ['nullable', 'url'],
+            'image' => ['nullable', 'file', 'max:3072', 'mimes:jpg,jpeg,png,wepb'],
         ]);
+
+        if ($request->hasFile('image')) {
+            $fields['image'] = Storage::disk('public')->put('images/listing', $request->file('image'));
+        }
+
+        $fields['tags'] = implode(',', array_unique(array_filter(array_map('trim', explode(',', $request->tags)))));
+
+        $request->user()->listings()->create($fields);
+
+        return redirect()->route('dashboard')->with('status', 'Listing created successfully');
     }
 
     /**
