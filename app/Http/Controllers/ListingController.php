@@ -101,7 +101,7 @@ class ListingController extends Controller
      */
     public function update(Request $request, Listing $listing)
     {
-        //
+        dd($request);
     }
 
     /**

@@ -33,7 +33,9 @@ const form = useForm({
 
         <ErrorMessages :errors="form.errors" />
 
-        <form class="grid grid-cols-2 gap-6">
+        <form 
+            @submit.prevent="form.put(route('listing.update', listing.id))"
+            class="grid grid-cols-2 gap-6">
 
             <div class="space-y-6">
                 <InputField label="Title" icon="heading" placeholder="My new listing" v-model="form.title" />
@@ -51,7 +53,7 @@ const form = useForm({
                 <InputField label="External link" icon="up-right-from-square" placeholder="https://example.com"
                     v-model="form.link" />
 
-                <ImageUpload @image="(e) => (form.image = e)" />
+                <ImageUpload @image="(e) => (form.image = e)" :listingImage="listing.image" />
             </div>
 
             <div>
