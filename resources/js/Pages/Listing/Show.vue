@@ -24,8 +24,13 @@ defineProps({
                 <div class="flex items-end justify-between mb-2">
                     <p class="text-slate-400 w-full border-b">Listing details</p>
                     <!-- Edit and delete buttons -->
-                    <div>
-                        edit and delete
+                    <div class="pl-4 flex items-center gap-4">
+                        <Link 
+                        :href="route('listing.edit', listing.id)"
+                        class="bg-green-500 rounded-md text-white px-6 py-2 hover:outline outline-green-500 outline-offset-2">
+                            Edit
+                        </Link>
+                        
                     </div>
                 </div>
 
@@ -66,10 +71,9 @@ defineProps({
 
                 <div class="flex items-center gap-3">
                     <div v-for="tag in listing.tags.split(',')" :key="tag">
-                        <Link
-                        :href="route('home', { tag })"
+                        <Link :href="route('home', { tag })"
                             class="bg-slate-500 text-white px-2 py-px rounded-full hover:bg-slate-700 dark:hover:bg-slate-900">
-                            {{ tag }}
+                        {{ tag }}
                         </Link>
                     </div>
                 </div>
