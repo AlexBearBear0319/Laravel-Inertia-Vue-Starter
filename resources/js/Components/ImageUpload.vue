@@ -19,10 +19,12 @@ const imageSelected = (e) => {
     emit('image', e.target.files[0]);
 };
 
+//for reverting the image change need to emit the image as null then the update will be reverted to the previous image wihtout any changes
 const revertImageChange = () => {
     preview.value = currentImage;
     showRevertBtn.value = false;
     oversizedImage.value = false;
+    emit('image', null);
 };
 </script>
 
@@ -45,9 +47,7 @@ const revertImageChange = () => {
 
             <button
                 class="absolute top-2 right-2 bg-white/75 w-8 h-8 rounded-full grid place-items-center text-slate-700"
-                v-if="showRevertBtn" 
-                @click.prevent="revertImageChange"
-                type="button">
+                v-if="showRevertBtn" @click.prevent="revertImageChange" type="button">
                 <i class="fa-solid fa-rotate-left"></i>
             </button>
         </label>

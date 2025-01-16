@@ -101,14 +101,45 @@ class ListingController extends Controller
      */
     public function update(Request $request, Listing $listing)
     {
-        dd($request);
+        $fields = $request->validate([
+            'title' => ['required', 'max:255'],
+            'desc' => ['required'],
+            'tags' => ['nullable', 'string'],
+            'email' => ['nullable', 'email'],
+            'link' => ['nullable', 'url'],
+            'image' => ['nullable', 'file', 'max:3072', 'mimes:jpg,jpeg,png,wepb'],
+        ]);
+
+        //differece between the store method = need to check if the image has requested to be updated
+        if ($request->hasFile('image')) {
+
+            if($listing->image){
+                Storage::disk('public')->delete($listing->image);
+            }
+
+            $fields['image'] = Storage::disk('public')->put('images/listing', $request->file('image'));
+        } else {
+            $fields['image'] = $listing->image;
+        }
+
+        $fields['tags'] = implode(',', array_unique(array_filter(array_map('trim', explode(',', $request->tags)))));
+
+        $listing->update($fields);
+
+        return redirect()->route('dashboard')->with('status', 'Listing updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. + check if got image attached then have to delete the image from db
      */
     public function destroy(Listing $listing)
     {
-        //
+        if($listing->image){
+            Storage::disk('public')->delete($listing->image);
+        }
+
+        $listing->delete();
+
+        return redirect()->route('dashboard')->with('status', 'Listing deleted successfully.');
     }
 }

@@ -19,6 +19,8 @@ const form = useForm({
     email: props.listing.email,
     link: props.listing.link,
     image: null,
+    // Add the method to the form data as PUT with POST method
+    _method: 'PUT',
 });
 </script>
 
@@ -33,9 +35,8 @@ const form = useForm({
 
         <ErrorMessages :errors="form.errors" />
 
-        <form 
-            @submit.prevent="form.put(route('listing.update', listing.id))"
-            class="grid grid-cols-2 gap-6">
+        <!-- handling the whole data including the image/files by using POST method instead of other -->
+        <form @submit.prevent="form.post(route('listing.update', listing.id))" class="grid grid-cols-2 gap-6">
 
             <div class="space-y-6">
                 <InputField label="Title" icon="heading" placeholder="My new listing" v-model="form.title" />
