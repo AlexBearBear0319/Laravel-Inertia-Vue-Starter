@@ -5,6 +5,7 @@ import { router } from '@inertiajs/vue3';
 const props = defineProps({
     listing: Object,
     user: Object,
+    canModify: Boolean,
 });
 
 const deleteListing = () => {
@@ -32,7 +33,8 @@ const deleteListing = () => {
                 <div class="flex items-end justify-between mb-2">
                     <p class="text-slate-400 w-full border-b">Listing details</p>
                     <!-- Edit and delete buttons -->
-                    <div class="pl-4 flex items-center gap-4">
+                     <!-- If the user is the owner of the listing then only the edit and delete buttons will be shown -->
+                    <div v-if="canModify" class="pl-4 flex items-center gap-4">
                         <Link :href="route('listing.edit', listing.id)"
                             class="bg-green-500 rounded-md text-white px-6 py-2 hover:outline outline-green-500 outline-offset-2">
                         Edit
