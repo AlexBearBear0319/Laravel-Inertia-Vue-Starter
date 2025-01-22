@@ -9,10 +9,15 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $listings = $request->user()->listings()->get();
+        //check if user is suspended
+        $listings = 
+            $request->user()->role !== 'suspended' ?
+            $request->user()->listings()->latest()->paginate(10) :
+            null;
 
         return Inertia::render('Dashboard', [
             'listings' => $listings,
+            'status' => session('status')
         ]);
     }
 }
