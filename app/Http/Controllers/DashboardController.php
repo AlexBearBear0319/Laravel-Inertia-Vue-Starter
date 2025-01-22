@@ -7,8 +7,12 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Dashboard');
+        $listings = $request->user()->listings()->get();
+
+        return Inertia::render('Dashboard', [
+            'listings' => $listings,
+        ]);
     }
 }
