@@ -49,4 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Listing::class);
     }
+
+    // Easy to implement few conditional for admin functions like maybe can add one more like only if the specific email.
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 }
