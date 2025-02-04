@@ -2,7 +2,16 @@
 import PaginationLinks from '../../Components/PaginationLinks.vue'
 import RoleSelect from '../../Components/RoleSelect.vue';
 import SessionMessages from '../../Components/SessionMessages.vue';
+import InputField from '../../Components/InputField.vue';
+import { useForm } from '@inertiajs/vue3';
+
 defineProps({ users: Object, status: String });
+
+const form = useForm({search: ''})
+
+const search = () => {
+    //
+}
 </script>
 
 <template>
@@ -12,7 +21,19 @@ defineProps({ users: Object, status: String });
     <SessionMessages :status="status" />
 
     <!-- Heading -->
-    <div>heading</div>
+    <div class="flex items-end justify-between mb-4">\
+        <div class="flex items-end gap-2">
+            <!-- Search form -->
+             <form @submit.prevent="search">
+                <InputField
+                    label=""
+                    icon="magnifying-glass"
+                    placeholder="Search..."
+                    v-model="form.search"
+                />
+             </form>
+        </div>
+    </div>
 
     <!-- Table -->
     <table class="bg-white dark:bg-slate-800 w-full rounded-lg overflow-hidden ring-1 ring-slate-300">
