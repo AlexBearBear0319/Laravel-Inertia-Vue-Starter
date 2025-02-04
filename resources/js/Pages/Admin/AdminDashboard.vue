@@ -1,11 +1,15 @@
 <script setup>
 import PaginationLinks from '../../Components/PaginationLinks.vue'
-defineProps({ users: Object });
+import RoleSelect from '../../Components/RoleSelect.vue';
+import SessionMessages from '../../Components/SessionMessages.vue';
+defineProps({ users: Object, status: String });
 </script>
 
 <template>
 
     <Head title="- Admin" />
+
+    <SessionMessages :status="status" />
 
     <!-- Heading -->
     <div>heading</div>
@@ -28,7 +32,7 @@ defineProps({ users: Object });
                 </td>
 
                 <td class="w-2/6 py-5 px-3">
-                    {{ user.role }}
+                    <RoleSelect :user="user"/>
                 </td>
 
                 <td class="w-1/6 py-5 px-3">
