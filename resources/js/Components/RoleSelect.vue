@@ -16,6 +16,8 @@ const submit = () => {
 
 </script>
 
+
+<!-- Drop down function for options' selection -->
 <template>
     <div class="flex items-center gap-2">
         <form @change="submit" class="flex items-center gap-2">

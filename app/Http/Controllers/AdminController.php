@@ -6,13 +6,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-//4.16mins youtube video
 class AdminController extends Controller
 {
     public function index()
     {
         $users = User::with('listings')
-            ->filter(request(['search']))
+            ->filter(request(['search', 'user_role']))
             ->paginate(10)
             ->withQueryString();
 
