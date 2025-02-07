@@ -14,6 +14,17 @@ const deleteListing = () => {
         router.delete(route('listing.destroy', props.listing.id));
     }
 };
+
+// for admin to approve/disapprove for the particular listing
+const toggleApprove = () => {
+    let msg = props.listing.approved
+        ? 'Disapprove this listing?'
+        : 'Approve this listing?'
+
+    if (confirm(msg)) {
+        router.put(route('admin.approve', props.listing.id))
+    }
+};
 </script>
 
 <template>
@@ -26,7 +37,7 @@ const deleteListing = () => {
         <p>
             This listing is {{ listing.approved ? "Approved" : "Disapproved" }}.
         </p>
-        <button class="bg-slate-600 px-3 py-1 rounded-md">
+        <button @click.prevent="toggleApprove" class="bg-slate-600 px-3 py-1 rounded-md">
             {{ listing.approved ? 'Disapprove it' : 'Approve it' }}
         </button>
     </div>
