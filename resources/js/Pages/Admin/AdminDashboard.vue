@@ -102,7 +102,9 @@ const toggleRole = (e) => {
                 </td>
 
                 <td class="w-1/6 py-5 px-3 text-right">
-                    View Link
+                    <Link :href="route('user.show', user.id)"
+                        class="fa-solid fa-up-right-from-square px-3 text-indigo-400">
+                    </Link>
                 </td>
             </tr>
         </tbody>

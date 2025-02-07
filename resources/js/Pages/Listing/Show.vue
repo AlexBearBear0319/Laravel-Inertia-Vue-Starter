@@ -19,6 +19,18 @@ const deleteListing = () => {
 <template>
 
     <Head title="- Listing Detail" />
+
+    <!-- Admin section -->
+    <div v-if="$page.props.auth.user.role === 'admin'"
+        class="bg-slate-800 text-white mb-6 p-6 rounded-md font-medium flex items-center justify-between">
+        <p>
+            This listing is {{ listing.approved ? "Approved" : "Disapproved" }}.
+        </p>
+        <button class="bg-slate-600 px-3 py-1 rounded-md">
+            {{ listing.approved ? 'Disapprove it' : 'Approve it' }}
+        </button>
+    </div>
+
     <Container class="flex gap-4">
         <div class="w-1/4 rounded-md overflow-hidden">
             <img :src="listing.image
@@ -33,7 +45,7 @@ const deleteListing = () => {
                 <div class="flex items-end justify-between mb-2">
                     <p class="text-slate-400 w-full border-b">Listing details</p>
                     <!-- Edit and delete buttons -->
-                     <!-- If the user is the owner of the listing then only the edit and delete buttons will be shown -->
+                    <!-- If the user is the owner of the listing then only the edit and delete buttons will be shown -->
                     <div v-if="canModify" class="pl-4 flex items-center gap-4">
                         <Link :href="route('listing.edit', listing.id)"
                             class="bg-green-500 rounded-md text-white px-6 py-2 hover:outline outline-green-500 outline-offset-2">
